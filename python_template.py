@@ -21,4 +21,4 @@ def solve(case):
 
 t = inp()
 for case in range(t):
-    solve(case)
+    print(solve(case))

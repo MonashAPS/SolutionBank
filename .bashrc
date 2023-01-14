@@ -12,7 +12,7 @@ function runcompiled {
     # Run a script (python or c) with some file provided input
     # Usage: runcompiled <script_file> <input_file>
     if [[ $1 == *.py ]]; then
-        { time (python3 $1 <$2 >o 2>error) >/dev/null; } 2>timing
+        { time (python $1 <$2 >o 2>error) >/dev/null; } 2>timing
     else
         { time (./$1 <$2 >o 2>error) >/dev/null; } 2>timing
     fi
@@ -115,14 +115,14 @@ function runtests {
     completed=1
     for (( i=1; i<=ITERATIONS; i++ )) do
         echo "Test #$i"
-        python3 $1 > test.in
+        python $1 > test.in
         if [[ $2 == *.c* ]];
         then
             ./correct < test.in > test.out
         fi
         if [[ $2 == *.py ]];
         then
-            python3 $2 < test.in > test.out
+            python $2 < test.in > test.out
         fi
         error=$?
         if [[ $error -ne 0 ]]
@@ -137,7 +137,7 @@ function runtests {
         fi
         if [[ $3 == *.py ]];
         then
-            python3 $3 < test.in > test.cmp
+            python $3 < test.in > test.cmp
         fi
         error=$?
         if [[ $error -ne 0 ]]
@@ -184,14 +184,14 @@ function checkresult {
     completed=1
     for (( i=1; i<=ITERATIONS; i++ )) do
         echo "Test #$i"
-        python3 $1 > test.in
+        python $1 > test.in
         if [[ $2 == *.c* ]];
         then
             ./sol < test.in > test.out
         fi
         if [[ $2 == *.py ]];
         then
-            python3 $2 < test.in > test.out
+            python $2 < test.in > test.out
         fi
         error=$?
         if [[ $error -ne 0 ]]
@@ -200,7 +200,7 @@ function checkresult {
             completed=0
             break
         fi
-        python3 $3 test.in test.out > test.result
+        python $3 test.in test.out > test.result
         str=GOOD
         if [[ $(< test.result) != "$str" ]]; then
             echo "Post processing failed."
