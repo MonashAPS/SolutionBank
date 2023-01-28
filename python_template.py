@@ -5,14 +5,13 @@
 
 import sys
 sys.setrecursionlimit(10000)
-input = sys.stdin.readline
 def inp(): #int input
     return(int(input()))
 def inlt(): #int list input
     return(list(map(int,input().split())))
 def insr(): #string input (list of chars)
     s = input()
-    return(list(s[:len(s) - 1]))
+    return(list(s))
 def invr(): #space separated ints
     return(map(int,input().split()))
 
